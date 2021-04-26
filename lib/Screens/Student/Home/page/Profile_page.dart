@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:qr_based_attendance_system/Screens/Student/Home/page/EditPofile.dart';
 
 class ProfilePage extends StatefulWidget {
   final String studentuid;
@@ -19,6 +20,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     var userData = FirebaseFirestore.instance.collection('UsersAccounts').doc(widget.studentuid).get;
 
     return Scaffold(
@@ -114,7 +116,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
                           children: [
                             Icon(
-                              Icons.card_travel,
+                              Icons.credit_card_outlined,
                               color: Theme.of(context).primaryColor,
                               size: 20,
                             ),
@@ -131,7 +133,32 @@ class _ProfilePageState extends State<ProfilePage> {
                           ],
                         ),
                         SizedBox(
-                          height: 15,
+                          height: 60,
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 7),
+                          width: size.width * 0.4,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(29),
+                            child: RaisedButton(
+                              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                              color: Colors.indigo[400],
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return EditProfile(studentID: widget.studentuid,);
+                                    },
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                "Edit",
+                                style: TextStyle(color: Colors.white ,fontFamily: "NotoSerif-Bold"),
+                              ),
+                            ),
+                          ),
                         ),
                         ],),),
                 ],

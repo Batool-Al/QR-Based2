@@ -2,16 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
-class EditCourses extends StatefulWidget {
-  DocumentSnapshot contactKey;
-  EditCourses({this.contactKey});
+class EditProfile extends StatefulWidget {
+  final String studentID;
+  EditProfile({this.studentID});
 
   @override
-  _EditCoursesState createState() => _EditCoursesState();
+  _EditProfileState createState() => _EditProfileState();
 }
 
-class _EditCoursesState extends State<EditCourses> {
-  TextEditingController _courseController, _majorController;
+class _EditProfileState extends State<EditProfile> {
+  TextEditingController _nameController, _emailController, _idController, _majorController;
   String _typeSelected = '';
 
   DatabaseReference _ref;
@@ -20,7 +20,9 @@ class _EditCoursesState extends State<EditCourses> {
   void initState() {
 
     super.initState();
-    _courseController = TextEditingController();
+    _nameController = TextEditingController();
+    _emailController = TextEditingController();
+    _idController = TextEditingController();
     _majorController = TextEditingController();
 
   }
@@ -63,9 +65,9 @@ class _EditCoursesState extends State<EditCourses> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextFormField(
-              controller: _courseController,
+              controller: _nameController,
               decoration: InputDecoration(
-                hintText: 'Enter Course',
+                hintText: 'Enter Name',
                 prefixIcon: Icon(
                   Icons.code,
                   size: 30,
@@ -76,6 +78,38 @@ class _EditCoursesState extends State<EditCourses> {
               ),
             ),
             SizedBox(height: 15),
+            TextFormField(
+              controller: _emailController,
+              decoration: InputDecoration(
+                hintText: 'Enter Email',
+                prefixIcon: Icon(
+                  Icons.phone_iphone,
+                  size: 30,
+                ),
+                fillColor: Colors.white,
+                filled: true,
+                contentPadding: EdgeInsets.all(15),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            TextFormField(
+              controller: _idController,
+              decoration: InputDecoration(
+                hintText: 'Enter ID',
+                prefixIcon: Icon(
+                  Icons.phone_iphone,
+                  size: 30,
+                ),
+                fillColor: Colors.white,
+                filled: true,
+                contentPadding: EdgeInsets.all(15),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
             TextFormField(
               controller: _majorController,
               decoration: InputDecoration(
@@ -98,7 +132,7 @@ class _EditCoursesState extends State<EditCourses> {
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: RaisedButton(
                 child: Text(
-                  'Update Course',
+                  'Update Info',
                   style: TextStyle(
                     fontSize: 20,
                     color: Colors.white,
@@ -119,19 +153,22 @@ class _EditCoursesState extends State<EditCourses> {
 
   getCourseDetail() async {
 
-    DataSnapshot snapshot = await _ref.child(widget.contactKey.id).once();
+    DataSnapshot snapshot = await _ref.child(widget.studentID).once();
     Map contact = snapshot.value;
-    _courseController.text = contact["Course"];
+    _nameController.text = contact["FullName"];
+    _emailController.text = contact["Email"];
     _majorController.text = contact["Major"];
+    _idController.text = contact["ID"];
 
   }
 
   void saveContact() async{
-    String name = _courseController.text;
-    String number = _majorController.text;
-    await FirebaseFirestore.instance.collection('Courses').doc(widget.contactKey.id).update({
-      'Course': name,
-      'Major':  number,
+
+    await FirebaseFirestore.instance.collection('Courses').doc(widget.studentID).update({
+      'FullName': _nameController.text,
+      'Email':  _emailController,
+      'Major': _majorController,
+      'ID': _idController,
     }).then((value) {
       print('Done');
     });
