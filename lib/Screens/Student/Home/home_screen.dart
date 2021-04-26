@@ -10,12 +10,12 @@ import 'package:qr_based_attendance_system/Screens/Student/ImagePicker/AddExcuse
 class StudentHomePage extends StatefulWidget {
 
 
-  final String title;
+
   final Map user;
   final String contactKey;
 
   const StudentHomePage({
-    @required this.title, this.contactKey, this.user
+    @required this.contactKey, this.user
   });
 
   @override

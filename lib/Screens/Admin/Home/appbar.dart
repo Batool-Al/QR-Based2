@@ -1,4 +1,4 @@
-import 'package:qr_based_attendance_system/Screens/Admin/AdminProfile/AdminProfile.dart';
+
 import 'package:qr_based_attendance_system/Screens/Admin/Courses/AddCourses.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_based_attendance_system/Screens/Admin/Courses/DisplayCourses.dart';
@@ -23,22 +23,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
         length: 4,
         child: Scaffold(
           appBar: AppBar(
-            title: Text("Welcome Back"),
-            //centerTitle: true,
-            leading: IconButton(
-              icon: Icon(Icons.menu),
-              onPressed: () {},
-            ),
-            actions: [
-              IconButton(
-                icon: Icon(Icons.notifications_none),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: Icon(Icons.search),
-                onPressed: () {},
-              )
-            ],
+            title: Text("Welcome Back", style: TextStyle(fontSize: 15),),
             //backgroundColor: Colors.purple,
             flexibleSpace: Container(
               decoration: BoxDecoration(
@@ -54,12 +39,10 @@ class _AdminHomePageState extends State<AdminHomePage> {
               indicatorColor: Colors.white,
               indicatorWeight: 5,
               tabs: [
-
-                Tab(icon: Icon(Icons.group_add_outlined), text: 'Teachers'),
+                Tab(icon: Icon(Icons.group_add_outlined), text: 'Teachers',),
                 Tab(icon: Icon(Icons.menu_book_outlined), text:  'Courses'),
                 Tab(icon: Icon(Icons.message_outlined), text: 'Excuses'),
                 Tab(icon: Icon(Icons.face), text: 'Profile'),
-
               ],
             ),
             elevation: 20,

@@ -23,7 +23,7 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
         length: 4,
         child: Scaffold(
           appBar: AppBar(
-            title: Text("Hello ${widget.user['FullName']}"),
+            title: Text("Hello ${widget.user['FullName']}", style: TextStyle(fontSize: 15),),
             //centerTitle: true,
             actions: [
               IconButton(

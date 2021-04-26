@@ -21,19 +21,16 @@ class LogInPage extends StatefulWidget {
   @override
   _LogInPageState createState() => _LogInPageState();
 }
-
 class _LogInPageState extends State<LogInPage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
-
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
   bool _showPassword = true;
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -44,12 +41,13 @@ class _LogInPageState extends State<LogInPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SizedBox(height: 40),
+              SizedBox(height: 35),
               Container(
                 height: 290,
                 width: 290,
                 child: Lottie.asset('assets/images/2.json'),
               ),
+
               //Email
               Container(
                 height: size.height * 0.08,
@@ -109,14 +107,16 @@ class _LogInPageState extends State<LogInPage> {
                           color: Colors.white, fontFamily: "NotoSerif-Bold")),
                 ),
               ),
+              SizedBox(height: 10),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 10),
                 width: size.width * 0.5,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(29),
+                  // ignore: deprecated_member_use
                   child: RaisedButton(
                     padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-                    color: Colors.pink[100],
+                    color: Colors.indigo,
                     child: Text(
                       "LOGIN",
                       style: TextStyle(
@@ -174,7 +174,6 @@ class _LogInPageState extends State<LogInPage> {
       ),
     );
   }
-
   Future <bool> validator()async{
     bool validated=false;
     if (emailController.text.isEmpty ||
@@ -201,7 +200,6 @@ class _LogInPageState extends State<LogInPage> {
             .get()
             .then((value) {
               Map user = value.data();
-          print("mnxmcnvxcmn ${value.data()['Role']}");
           switch (value.data()['Role']) {
             case 'Admin':
               {
@@ -238,7 +236,9 @@ class _LogInPageState extends State<LogInPage> {
   }
   void showInSnackBar(String value, Color color, int duration) {
     FocusScope.of(context).requestFocus(new FocusNode());
+    // ignore: deprecated_member_use
     _scaffoldKey.currentState?.removeCurrentSnackBar();
+    // ignore: deprecated_member_use
     _scaffoldKey.currentState.showSnackBar(new SnackBar(
       content: new Text(
         value,

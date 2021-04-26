@@ -54,14 +54,11 @@ class _CoursesState extends State<Courses> {
           builder: (BuildContext context, AsyncSnapshot <QuerySnapshot> snapshot){
             if(!snapshot.hasData){
               return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
+                child: CircularProgressIndicator(),);}
             return ListView(
               children:
-              snapshot.data.docs.map((contact)
-              {
-              return Container(
+              snapshot.data.docs.map((contact) {
+                return Container(
                 margin: EdgeInsets.symmetric(vertical: 10),
                 padding: EdgeInsets.all(10),
                 height: 130,
@@ -71,22 +68,16 @@ class _CoursesState extends State<Courses> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      children: [
-                        Icon(
+                      children: [Icon(
                           Icons.code,
                           color: Theme.of(context).primaryColor,
-                          size: 20,
-                        ),
-                        SizedBox(
-                          width: 6,
-                        ),
-                        Text(
-                          contact["Course"],
+                          size: 20,),
+                        SizedBox(width: 6,),
+                        Text(contact["Course"],
                           style: TextStyle(
                               fontSize: 16,
                               color: Theme.of(context).primaryColor,
-                              fontWeight: FontWeight.w600),
-                        ),
+                              fontWeight: FontWeight.w600),),
                       ],
                     ),
                     SizedBox(

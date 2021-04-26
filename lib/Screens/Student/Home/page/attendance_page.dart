@@ -54,7 +54,6 @@ class _StudentScanState extends State<StudentScan> {
                 'CourseID', isEqualTo: courseID)
                   .get()
                   .then((mom) {
-
                 FirebaseFirestore.instance.collection('CoursesQR').where(
                   'Validated', isEqualTo: 'True'
                 ).get().then((value) {
