@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_based_attendance_system/Screens/Student/Home/page/ViewAttendance.dart';
-import 'package:qr_based_attendance_system/Screens/Student/Home/page/attendance_page.dart';
+import 'package:qr_based_attendance_system/Screens/Student/Home/page/Scanning_Page.dart';
 import 'package:qr_based_attendance_system/Screens/Student/Home/page/Profile_page.dart';
 import 'package:qr_based_attendance_system/Screens/Student/Home/page/course_page.dart';
 import 'package:qr_based_attendance_system/Screens/Student/Home/widget/tabbar_material_widget.dart';
@@ -8,8 +8,6 @@ import 'package:qr_based_attendance_system/Screens/Student/ImagePicker/AddExcuse
 
 
 class StudentHomePage extends StatefulWidget {
-
-
 
   final Map user;
   final String contactKey;

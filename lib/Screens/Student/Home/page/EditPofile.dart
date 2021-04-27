@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/firebase_database.dart';
+
 import 'package:flutter/material.dart';
 
 class EditProfile extends StatefulWidget {
@@ -12,9 +12,6 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   TextEditingController _nameController, _emailController;
-  String _typeSelected = '';
-
-  DatabaseReference _ref;
 
   @override
   void initState() {
@@ -23,34 +20,6 @@ class _EditProfileState extends State<EditProfile> {
     _nameController = TextEditingController();
     _emailController = TextEditingController();
 
-
-
-  }
-
-  Widget _buildContactType(String title) {
-    return InkWell(
-      child: Container(
-        height: 40,
-        width: 90,
-        decoration: BoxDecoration(
-          color: _typeSelected == title
-              ? Colors.green
-              : Theme.of(context).accentColor,
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Center(
-          child: Text(
-            title,
-            style: TextStyle(fontSize: 18, color: Colors.white),
-          ),
-        ),
-      ),
-      onTap: () {
-        setState(() {
-          _typeSelected = title;
-        });
-      },
-    );
   }
 
   @override
@@ -70,7 +39,7 @@ class _EditProfileState extends State<EditProfile> {
                 decoration: InputDecoration(
                   hintText: 'Enter Name',
                   prefixIcon: Icon(
-                    Icons.code,
+                    Icons.face,
                     size: 30,
                   ),
                   fillColor: Colors.white,
@@ -101,6 +70,7 @@ class _EditProfileState extends State<EditProfile> {
               Container(
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(horizontal: 10),
+                // ignore: deprecated_member_use
                 child: RaisedButton(
                   child: Text(
                     'Edit Info',

@@ -3,12 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:qr_based_attendance_system/Screens/Student/Home/home_screen.dart';
 import 'package:qr_based_attendance_system/Screens/Student/Signup/components/or_divider.dart';
-import 'package:qr_based_attendance_system/Screens/Student/Signup/components/background.dart';
 import '../../../../components/already_have_an_account_acheck.dart';
 import '../../../logInScreen/components/body.dart';
-import '../../Home/home_screen.dart';
+
 
 
 class StudentSignUp extends StatefulWidget {
@@ -85,232 +83,229 @@ class _StudentSignUpState extends State<StudentSignUp> {
 
     return Scaffold(
       key: _scaffoldKey,
-      body: Background(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(height: 100),
-              /// Full name
-              Row(
-                children: [
-                  SizedBox(width: 36,),
-                  Container(
-                    height: size.height * 0.08,
-                    width: size.width * 0.8,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[500].withOpacity(0.5),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: TextFormField(
-                      controller: fullNameController,
-                      keyboardType: TextInputType.name,
-                      textInputAction: TextInputAction.next,
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          prefixIcon: Icon(Icons.perm_identity, color: Colors.white, size: 20,),
-                          hintText: "Full Name",
-                          hintStyle: TextStyle(color: Colors.white,fontFamily: "NotoSerif-Bold")
-                      ),
-                      // The validator receives the text that the user has entered.
-                    ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(height: 100),
+            /// Full name
+            Row(
+              children: [
+                SizedBox(width: 36,),
+                Container(
+                  height: size.height * 0.08,
+                  width: size.width * 0.8,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[500].withOpacity(0.5),
+                    borderRadius: BorderRadius.circular(16),
                   ),
-                ],
-              ),
-              SizedBox(height: 6,),
-              /// ID
-              Container(
-                height: size.height * 0.08,
-                width: size.width * 0.8,
-                decoration: BoxDecoration(
-                  color: Colors.grey[500].withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: TextFormField(
-                  controller: idController,
-                  keyboardType: TextInputType.number,
-                  textInputAction: TextInputAction.next,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      prefixIcon: Icon(Icons.perm_identity, color: Colors.white, size: 20,),
-                      hintText: "User ID",
-                      hintStyle: TextStyle(color: Colors.white,fontFamily: "NotoSerif-Bold")
+                  child: TextFormField(
+                    controller: fullNameController,
+                    keyboardType: TextInputType.name,
+                    textInputAction: TextInputAction.next,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        prefixIcon: Icon(Icons.perm_identity, color: Colors.white, size: 20,),
+                        hintText: "Full Name",
+                        hintStyle: TextStyle(color: Colors.white,fontFamily: "NotoSerif-Bold")
+                    ),
+                    // The validator receives the text that the user has entered.
                   ),
                 ),
+              ],
+            ),
+            SizedBox(height: 6,),
+            /// ID
+            Container(
+              height: size.height * 0.08,
+              width: size.width * 0.8,
+              decoration: BoxDecoration(
+                color: Colors.grey[500].withOpacity(0.5),
+                borderRadius: BorderRadius.circular(16),
               ),
-              SizedBox(height: 6,),
-              /// Major
-              Container(
-                height: size.height * 0.08,
-                width: size.width * 0.8,
-                decoration: BoxDecoration(
-                  color: Colors.grey[500].withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: DropdownButtonFormField(
-                  dropdownColor: Colors.indigo[100],
-                  icon: Container(
-                      padding: EdgeInsets.only(right: 20,),
-                      child: Icon(Icons.arrow_downward, color: Colors.white, size: 30,)),
-                  decoration: InputDecoration(
-                    hintText: "Select Your Major",
-                    hintStyle: TextStyle(color: Colors.white, fontSize: 17,fontFamily: "NotoSerif-Bold"),
+              child: TextFormField(
+                controller: idController,
+                keyboardType: TextInputType.number,
+                textInputAction: TextInputAction.next,
+                decoration: InputDecoration(
                     border: InputBorder.none,
-                  ),
-                  items: listOfMajors.map((major) {
-                    return DropdownMenuItem(
-                      value: major,
-                      child: Container(
-                          padding: EdgeInsets.only(left: 15),
-                          child:
-                          Text('$major', style: TextStyle(color: Colors.white),)),
-                    );
-                  }).toList(),
-                  onChanged: (String stored){
-                    setState((){
-                      dropdownValue = stored;
-                    });
-                  },
+                    prefixIcon: Icon(Icons.perm_identity, color: Colors.white, size: 20,),
+                    hintText: "User ID",
+                    hintStyle: TextStyle(color: Colors.white,fontFamily: "NotoSerif-Bold")
                 ),
               ),
-
-              SizedBox(height: 6,),
-              /// Email
-              Container(
-                height: size.height * 0.08,
-                width: size.width * 0.8,
-                decoration: BoxDecoration(
-                  color: Colors.grey[500].withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: TextFormField(
-                  controller: emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.next,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      prefixIcon: Icon(Icons.email_outlined, color: Colors.white, size: 20,),
-                      hintText: "Enter Email",
-                      hintStyle: TextStyle(color: Colors.white,fontFamily: "NotoSerif-Bold")
-                  ),
-                ),
+            ),
+            SizedBox(height: 6,),
+            /// Major
+            Container(
+              height: size.height * 0.08,
+              width: size.width * 0.8,
+              decoration: BoxDecoration(
+                color: Colors.grey[500].withOpacity(0.5),
+                borderRadius: BorderRadius.circular(16),
               ),
-              SizedBox(height: 6,),
-              /// Password
-              Container(
-                height: size.height * 0.08,
-                width: size.width * 0.8,
-                decoration: BoxDecoration(
-                  color: Colors.grey[500].withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(16),
+              child: DropdownButtonFormField(
+                dropdownColor: Colors.indigo[100],
+                icon: Container(
+                    padding: EdgeInsets.only(right: 20,),
+                    child: Icon(Icons.arrow_downward, color: Colors.white, size: 30,)),
+                decoration: InputDecoration(
+                  hintText: "Select Your Major",
+                  hintStyle: TextStyle(color: Colors.white, fontSize: 17,fontFamily: "NotoSerif-Bold"),
+                  border: InputBorder.none,
                 ),
-                child: TextFormField(
-                  controller: passwordController,
-                  autocorrect: true,
-                  keyboardType: TextInputType.visiblePassword,
-                  obscureText: _showPassword,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      prefixIcon: Icon(
-                        Icons.lock_outline,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          Icons.remove_red_eye,
-                          color: this._showPassword ? Colors.grey : Colors.redAccent,
-                        ),
-                        onPressed: () {
-                          setState(() => this._showPassword = !this._showPassword);
-                        },
-                      ),
-                      hintText: "Enter Password",
-                      hintStyle: TextStyle(
-                          color: Colors.white, fontFamily: "NotoSerif-Bold")),
-                ),
-              ),
-              SizedBox(height: size.height * 0.01,),
-              Container(
-                height: size.height * 0.08,
-                width: size.width * 0.8,
-                decoration: BoxDecoration(
-                  color: Colors.grey[500].withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: TextFormField(
-                  controller: confirmPasswordController,
-                  obscureText: _showPassword,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      prefixIcon: Icon(Icons.lock_outline, color: Colors.white, size: 20,),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          Icons.remove_red_eye,
-                          color: this._showPassword ? Colors.grey : Colors.redAccent,
-                        ),
-                        onPressed: () {
-                          setState(() => this._showPassword = !this._showPassword);
-                        },
-                      ),
-                      hintText: "Confirm Password",
-                      hintStyle: TextStyle(color: Colors.white,fontFamily: "NotoSerif-Bold")
-                  ),
-
-                ),
-              ),
-
-              SizedBox(height: size.height * 0.04,),
-              // Button
-              Container(
-                 margin: EdgeInsets.symmetric(vertical: 10),
-                 width: size.width * 0.5,
-                 child: ClipRRect(
-                     borderRadius: BorderRadius.circular(29),
-                     child: RaisedButton(
-                       padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-                       color: Colors.indigo[400],
-                       onPressed: () {
-                         _createUser();
-                         validator().then((value) {
-                           if(value==true){
-                             Navigator.push(
-                               context,
-                               MaterialPageRoute(
-                                 builder: (context) {
-                                   return LogInPage();
-                                 },
-                               ),
-                             );
-                           }
-                         });
-                       },
-                       child: Text(
-                         "SIGNUP",
-                         style: TextStyle(color: Colors.white ,fontFamily: "NotoSerif-Bold"),
-                       ),
-                     ),
-                 ),
-              ),
-              AlreadyHaveAnAccountCheck(
-                login: false,
-                press: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return LogInPage();
-                      },
-                    ),
+                items: listOfMajors.map((major) {
+                  return DropdownMenuItem(
+                    value: major,
+                    child: Container(
+                        padding: EdgeInsets.only(left: 15),
+                        child:
+                        Text('$major', style: TextStyle(color: Colors.white),)),
                   );
+                }).toList(),
+                onChanged: (String stored){
+                  setState((){
+                    dropdownValue = stored;
+                  });
                 },
               ),
-              OrDivider(),
-            ],
-          ),
-        ),
+            ),
 
+            SizedBox(height: 6,),
+            /// Email
+            Container(
+              height: size.height * 0.08,
+              width: size.width * 0.8,
+              decoration: BoxDecoration(
+                color: Colors.grey[500].withOpacity(0.5),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: TextFormField(
+                controller: emailController,
+                keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.next,
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    prefixIcon: Icon(Icons.email_outlined, color: Colors.white, size: 20,),
+                    hintText: "Enter Email",
+                    hintStyle: TextStyle(color: Colors.white,fontFamily: "NotoSerif-Bold")
+                ),
+              ),
+            ),
+            SizedBox(height: 6,),
+            /// Password
+            Container(
+              height: size.height * 0.08,
+              width: size.width * 0.8,
+              decoration: BoxDecoration(
+                color: Colors.grey[500].withOpacity(0.5),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: TextFormField(
+                controller: passwordController,
+                autocorrect: true,
+                keyboardType: TextInputType.visiblePassword,
+                obscureText: _showPassword,
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    prefixIcon: Icon(
+                      Icons.lock_outline,
+                      color: Colors.white,
+                      size: 20,
+                    ),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        Icons.remove_red_eye,
+                        color: this._showPassword ? Colors.grey : Colors.redAccent,
+                      ),
+                      onPressed: () {
+                        setState(() => this._showPassword = !this._showPassword);
+                      },
+                    ),
+                    hintText: "Enter Password",
+                    hintStyle: TextStyle(
+                        color: Colors.white, fontFamily: "NotoSerif-Bold")),
+              ),
+            ),
+            SizedBox(height: size.height * 0.01,),
+            Container(
+              height: size.height * 0.08,
+              width: size.width * 0.8,
+              decoration: BoxDecoration(
+                color: Colors.grey[500].withOpacity(0.5),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: TextFormField(
+                controller: confirmPasswordController,
+                obscureText: _showPassword,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    prefixIcon: Icon(Icons.lock_outline, color: Colors.white, size: 20,),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        Icons.remove_red_eye,
+                        color: this._showPassword ? Colors.grey : Colors.redAccent,
+                      ),
+                      onPressed: () {
+                        setState(() => this._showPassword = !this._showPassword);
+                      },
+                    ),
+                    hintText: "Confirm Password",
+                    hintStyle: TextStyle(color: Colors.white,fontFamily: "NotoSerif-Bold")
+                ),
+
+              ),
+            ),
+
+            SizedBox(height: size.height * 0.04,),
+            // Button
+            Container(
+               margin: EdgeInsets.symmetric(vertical: 10),
+               width: size.width * 0.5,
+               child: ClipRRect(
+                   borderRadius: BorderRadius.circular(29),
+                   child: RaisedButton(
+                     padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                     color: Colors.indigo[400],
+                     onPressed: () {
+                       _createUser();
+                       validator().then((value) {
+                         if(value==true){
+                           Navigator.push(
+                             context,
+                             MaterialPageRoute(
+                               builder: (context) {
+                                 return LogInPage();
+                               },
+                             ),
+                           );
+                         }
+                       });
+                     },
+                     child: Text(
+                       "SIGNUP",
+                       style: TextStyle(color: Colors.white ,fontFamily: "NotoSerif-Bold"),
+                     ),
+                   ),
+               ),
+            ),
+            AlreadyHaveAnAccountCheck(
+              login: false,
+              press: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return LogInPage();
+                    },
+                  ),
+                );
+              },
+            ),
+            OrDivider(),
+          ],
+        ),
       ),
     );
   }

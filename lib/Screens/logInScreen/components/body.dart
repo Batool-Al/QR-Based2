@@ -8,7 +8,6 @@ import 'package:lottie/lottie.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../Admin/Home/appbar.dart';
 import '../../Student/Home/home_screen.dart';
-import '../../Student/Signup/components/background.dart';
 import '../../Teacher/Home/home_screen.dart';
 import 'forgotpassword.dart';
 
@@ -36,8 +35,7 @@ class _LogInPageState extends State<LogInPage> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       key: _scaffoldKey,
-      body: Background(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -171,7 +169,7 @@ class _LogInPageState extends State<LogInPage> {
             ],
           ),
         ),
-      ),
+
     );
   }
   Future <bool> validator()async{

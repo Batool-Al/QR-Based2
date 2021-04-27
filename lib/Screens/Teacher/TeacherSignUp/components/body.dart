@@ -4,8 +4,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_based_attendance_system/Screens/Student/Signup/components/or_divider.dart';
-import 'package:qr_based_attendance_system/Screens/Student/Signup/components/background.dart';
-
 import 'package:qr_based_attendance_system/Screens/logInScreen/components/body.dart';
 import '../../../../components/already_have_an_account_acheck.dart';
 import '../../../logInScreen/login_screen2.dart';
@@ -86,207 +84,205 @@ class _TeacherSignupState extends State<TeacherSignup> {
 
     return Scaffold(
       key: _scaffoldKey,
-      body: Background(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(height: 100),
-              /// First Name and Second Name
-              Row(
-                children: [
-                  SizedBox(width: 36,),
-                  Container(
-                    height: size.height * 0.08,
-                    width: size.width * 0.8,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[500].withOpacity(0.5),
-                      borderRadius: BorderRadius.circular(16),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(height: 100),
+            /// First Name and Second Name
+            Row(
+              children: [
+                SizedBox(width: 36,),
+                Container(
+                  height: size.height * 0.08,
+                  width: size.width * 0.8,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[500].withOpacity(0.5),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: TextFormField(
+                    controller: fullNameController,
+                    keyboardType: TextInputType.name,
+                    textInputAction: TextInputAction.next,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        prefixIcon: Icon(Icons.perm_identity, color: Colors.white, size: 20,),
+                        hintText: "Full Name",
+                        hintStyle: TextStyle(color: Colors.white,fontFamily: "NotoSerif-Bold")
                     ),
-                    child: TextFormField(
-                      controller: fullNameController,
-                      keyboardType: TextInputType.name,
-                      textInputAction: TextInputAction.next,
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          prefixIcon: Icon(Icons.perm_identity, color: Colors.white, size: 20,),
-                          hintText: "Full Name",
-                          hintStyle: TextStyle(color: Colors.white,fontFamily: "NotoSerif-Bold")
-                      ),
-                      // The validator receives the text that the user has entered.
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Enter Valid Name';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-
-                ],
-              ),
-              SizedBox(height: 6,),
-              /// ID
-              Container(
-                height: size.height * 0.08,
-                width: size.width * 0.8,
-                decoration: BoxDecoration(
-                  color: Colors.grey[500].withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: TextFormField(
-                  controller: idController,
-                  keyboardType: TextInputType.number,
-                  textInputAction: TextInputAction.next,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      prefixIcon: Icon(Icons.perm_identity, color: Colors.white, size: 20,),
-                      hintText: "User ID",
-                      hintStyle: TextStyle(color: Colors.white,fontFamily: "NotoSerif-Bold")
-                  ),
-                  // The validator receives the text that the user has entered.
-                  validator: (value) => value.isEmpty ? 'Enter Valid ID' : null,
-                ),
-              ),
-              SizedBox(height: 6,),
-              /// Email
-              Container(
-                height: size.height * 0.08,
-                width: size.width * 0.8,
-                decoration: BoxDecoration(
-                  color: Colors.grey[500].withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: TextFormField(
-                  controller: emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.next,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      prefixIcon: Icon(Icons.email_outlined, color: Colors.white, size: 20,),
-                      hintText: "Enter Email",
-                      hintStyle: TextStyle(color: Colors.white,fontFamily: "NotoSerif-Bold")
-                  ),
-                  // The validator receives the text that the user has entered.
-                  validator: (String value) {
-                    if (value.isEmpty) {
-                      return 'Email is Required';
-                    }
-                    if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-                        .hasMatch(value)) {
-                      return 'Please enter a valid email Address';
-                    }
-                    return null;
-                  },
-                ),
-              ),
-              SizedBox(height: 6,),
-              /// Password
-              Container(
-                height: size.height * 0.08,
-                width: size.width * 0.8,
-                decoration: BoxDecoration(
-                  color: Colors.grey[500].withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: TextFormField(
-                  controller: passwordController,
-                  autocorrect: true,
-                  keyboardType: TextInputType.visiblePassword,
-                  obscureText: true,
-                  validator: (_password) => _password.length <6 ? 'Please Enter Valid Password' : null,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      prefixIcon: Icon(Icons.lock_outline, color: Colors.white, size: 20,) ,
-                      hintText: "Enter Password",
-                      hintStyle: TextStyle(color: Colors.white,fontFamily: "NotoSerif-Bold")
-                  ),
-                  // The validator receives the text that the user has entered.
-                ),
-              ),
-              SizedBox(height:6),
-              Container(
-                height: size.height * 0.08,
-                width: size.width * 0.8,
-                decoration: BoxDecoration(
-                  color: Colors.grey[500].withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: TextFormField(
-                  controller: confirmPasswordController,
-                  obscureText: true,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      prefixIcon: Icon(Icons.lock_outline, color: Colors.white, size: 20,) ,
-                      hintText: "Confirm Password",
-                      hintStyle: TextStyle(color: Colors.white,fontFamily: "NotoSerif-Bold")
-                  ),
-                  validator: (String value){
-                    if(value.isEmpty)
-                    {
-                      return 'Confirming password is Required';
-                    }
-                    print(passwordController.text);
-                    print(confirmPasswordController.text);
-                    if (value != passwordController.value.text) {
-                      return 'Passwords do not match!';
-                    }
-                    return null;
-                  },
-
-                ),
-              ),
-              SizedBox(height: size.height * 0.02,),
-              // Button
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 10),
-                width: size.width * 0.5,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(29),
-                  child: RaisedButton(
-                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-                    color: Colors.indigo[400],
-                    onPressed: () {
-                      _createUser();
-                      validator().then((value) {
-                        if(value==true){
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return LogInPage();
-                              },
-                            ),
-                          );
-                        }
-                      });
+                    // The validator receives the text that the user has entered.
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Enter Valid Name';
+                      }
+                      return null;
                     },
-                    child: Text(
-                      "SIGNUP",
-                      style: TextStyle(color: Colors.white ,fontFamily: "NotoSerif-Bold"),
-                    ),
                   ),
                 ),
+
+              ],
+            ),
+            SizedBox(height: 6,),
+            /// ID
+            Container(
+              height: size.height * 0.08,
+              width: size.width * 0.8,
+              decoration: BoxDecoration(
+                color: Colors.grey[500].withOpacity(0.5),
+                borderRadius: BorderRadius.circular(16),
               ),
-              AlreadyHaveAnAccountCheck(
-                login: false,
-                press: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return login_screen2();
-                      },
-                    ),
-                  );
+              child: TextFormField(
+                controller: idController,
+                keyboardType: TextInputType.number,
+                textInputAction: TextInputAction.next,
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    prefixIcon: Icon(Icons.perm_identity, color: Colors.white, size: 20,),
+                    hintText: "User ID",
+                    hintStyle: TextStyle(color: Colors.white,fontFamily: "NotoSerif-Bold")
+                ),
+                // The validator receives the text that the user has entered.
+                validator: (value) => value.isEmpty ? 'Enter Valid ID' : null,
+              ),
+            ),
+            SizedBox(height: 6,),
+            /// Email
+            Container(
+              height: size.height * 0.08,
+              width: size.width * 0.8,
+              decoration: BoxDecoration(
+                color: Colors.grey[500].withOpacity(0.5),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: TextFormField(
+                controller: emailController,
+                keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.next,
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    prefixIcon: Icon(Icons.email_outlined, color: Colors.white, size: 20,),
+                    hintText: "Enter Email",
+                    hintStyle: TextStyle(color: Colors.white,fontFamily: "NotoSerif-Bold")
+                ),
+                // The validator receives the text that the user has entered.
+                validator: (String value) {
+                  if (value.isEmpty) {
+                    return 'Email is Required';
+                  }
+                  if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                      .hasMatch(value)) {
+                    return 'Please enter a valid email Address';
+                  }
+                  return null;
                 },
               ),
-              OrDivider(),
-            ],
-          ),
-        ),
+            ),
+            SizedBox(height: 6,),
+            /// Password
+            Container(
+              height: size.height * 0.08,
+              width: size.width * 0.8,
+              decoration: BoxDecoration(
+                color: Colors.grey[500].withOpacity(0.5),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: TextFormField(
+                controller: passwordController,
+                autocorrect: true,
+                keyboardType: TextInputType.visiblePassword,
+                obscureText: true,
+                validator: (_password) => _password.length <6 ? 'Please Enter Valid Password' : null,
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    prefixIcon: Icon(Icons.lock_outline, color: Colors.white, size: 20,) ,
+                    hintText: "Enter Password",
+                    hintStyle: TextStyle(color: Colors.white,fontFamily: "NotoSerif-Bold")
+                ),
+                // The validator receives the text that the user has entered.
+              ),
+            ),
+            SizedBox(height:6),
+            Container(
+              height: size.height * 0.08,
+              width: size.width * 0.8,
+              decoration: BoxDecoration(
+                color: Colors.grey[500].withOpacity(0.5),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: TextFormField(
+                controller: confirmPasswordController,
+                obscureText: true,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    prefixIcon: Icon(Icons.lock_outline, color: Colors.white, size: 20,) ,
+                    hintText: "Confirm Password",
+                    hintStyle: TextStyle(color: Colors.white,fontFamily: "NotoSerif-Bold")
+                ),
+                validator: (String value){
+                  if(value.isEmpty)
+                  {
+                    return 'Confirming password is Required';
+                  }
+                  print(passwordController.text);
+                  print(confirmPasswordController.text);
+                  if (value != passwordController.value.text) {
+                    return 'Passwords do not match!';
+                  }
+                  return null;
+                },
 
+              ),
+            ),
+            SizedBox(height: size.height * 0.02,),
+            // Button
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 10),
+              width: size.width * 0.5,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(29),
+                // ignore: deprecated_member_use
+                child: RaisedButton(
+                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                  color: Colors.indigo[400],
+                  onPressed: () {
+                    _createUser();
+                    validator().then((value) {
+                      if(value==true){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return LogInPage();
+                            },
+                          ),
+                        );
+                      }
+                    });
+                  },
+                  child: Text(
+                    "SIGNUP",
+                    style: TextStyle(color: Colors.white ,fontFamily: "NotoSerif-Bold"),
+                  ),
+                ),
+              ),
+            ),
+            AlreadyHaveAnAccountCheck(
+              login: false,
+              press: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return login_screen2();
+                    },
+                  ),
+                );
+              },
+            ),
+            OrDivider(),
+          ],
+        ),
       ),
     );
   }

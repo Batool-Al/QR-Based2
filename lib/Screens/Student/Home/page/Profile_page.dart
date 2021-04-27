@@ -140,6 +140,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           width: size.width * 0.4,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(29),
+                            // ignore: deprecated_member_use
                             child: RaisedButton(
                               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
                               color: Colors.indigo[400],

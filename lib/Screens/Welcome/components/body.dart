@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:qr_based_attendance_system/Screens/Welcome/components/background.dart';
 import 'package:qr_based_attendance_system/components/rounded_button.dart';
-
 import 'package:lottie/lottie.dart';
 import '../../../constants.dart';
-import '../../../constants.dart';
+
 import '../../Student/Signup/components/body.dart';
 import '../../Teacher/TeacherSignUp/components/body.dart';
 
