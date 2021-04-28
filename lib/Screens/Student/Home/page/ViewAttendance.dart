@@ -39,8 +39,7 @@ class _ViewAttendanceState extends State<ViewAttendance> {
             }
             return ListView(
               children:
-              snapshot.data.docs.map((contact)
-              { if(contact['AttendanceID'] == widget.studentuid){
+              snapshot.data.docs.map((contact) { if(contact['AttendanceID'] == widget.studentuid){
                 return Container(
                   margin: EdgeInsets.symmetric(vertical: 10),
                   padding: EdgeInsets.all(10),
@@ -99,6 +98,8 @@ class _ViewAttendanceState extends State<ViewAttendance> {
                     ],
                   ),
                 );
+              }else{
+                return SizedBox(height: 1,);
               }
 
               }).toList(),

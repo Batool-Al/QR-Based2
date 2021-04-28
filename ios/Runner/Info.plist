@@ -41,5 +41,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>QR Attender System requires access to your phone’s camera</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>To Add or Update Product&apos;s Picture.</string>
 </dict>
 </plist>

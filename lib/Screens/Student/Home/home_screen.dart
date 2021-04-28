@@ -6,15 +6,11 @@ import 'package:qr_based_attendance_system/Screens/Student/Home/page/course_page
 import 'package:qr_based_attendance_system/Screens/Student/Home/widget/tabbar_material_widget.dart';
 import 'package:qr_based_attendance_system/Screens/Student/ImagePicker/AddExcuse.dart';
 
-
 class StudentHomePage extends StatefulWidget {
-
   final Map user;
   final String contactKey;
 
-  const StudentHomePage({
-    @required this.contactKey, this.user
-  });
+  const StudentHomePage({@required this.contactKey, this.user});
 
   @override
   _StudentHomePageState createState() => _StudentHomePageState();
@@ -22,9 +18,10 @@ class StudentHomePage extends StatefulWidget {
 
 class _StudentHomePageState extends State<StudentHomePage> {
   int index = 0;
-  @override
-  Widget build (BuildContext context){
 
+
+  @override
+  Widget build(BuildContext context) {
     final pages = <Widget>[
       ViewAttendance(studentuid: widget.contactKey, user: widget.user),
       StudentScan(studentuid: widget.contactKey, user: widget.user),
@@ -41,12 +38,12 @@ class _StudentHomePageState extends State<StudentHomePage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.menu_book_outlined),
         onPressed: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => AddExcuse()));
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddExcuse()));
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-    );}
+    );
+  }
 
   void onChangedTab(int index) {
     setState(() {

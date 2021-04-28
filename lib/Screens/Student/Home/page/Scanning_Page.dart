@@ -15,6 +15,8 @@ class _StudentScanState extends State<StudentScan> {
   String student;
   double height, width;
   String qrString = "Not Scanned";
+  Color qrStringColor = Colors.blue;
+  GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -23,22 +25,29 @@ class _StudentScanState extends State<StudentScan> {
     width = MediaQuery.of(context).size.width;
     print("Hello  ${widget.studentuid}");
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text("${widget.user['FullName']}"),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text(
-            qrString,
-            style: TextStyle(color: Colors.blue, fontSize: 30),
-          ),
-          ElevatedButton(
-            onPressed: scanQR,
-            child: Text("Scan QR Code"),
-          ),
-          SizedBox(width: width),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Center(
+              child: Text(
+                qrString,
+                style: TextStyle(
+                    color: qrStringColor, fontSize: 30),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: scanQR,
+              child: Text("Scan QR Code"),
+            ),
+            SizedBox(width: width),
+          ],
+        ),
       ),
     );
   }
@@ -47,34 +56,91 @@ class _StudentScanState extends State<StudentScan> {
 
     try {
       FlutterBarcodeScanner.scanBarcode("#2A99CF", "Cancel", true, ScanMode.QR,)
-          .then((qrValue) {
-        String courseID = qrValue.substring(0, 19);
-            setState(() {
-              FirebaseFirestore.instance.collection('CoursesQR').where(
-                'CourseID', isEqualTo: courseID)
-                  .get()
-                  .then((mom) {
-                FirebaseFirestore.instance.collection('CoursesQR').where(
-                  'Validated', isEqualTo: 'True'
-                ).get().then((value) {
-                  FirebaseFirestore.instance.collection('AttendanceDetail').doc().set(
-                      {
-                        'AttendanceTime': DateTime.now(),
-                        'AttendanceID': widget.studentuid,
-                        'AttendanceName': widget.user['FullName'],
-                        'AttendanceCourseID': courseID,
-                        'QRValue': qrValue,
+          .then((qrValue) async {
+              if(qrValue.length>20){
+                String courseID = qrValue.substring(0, 20);
+                await FirebaseFirestore.instance.collection('CoursesQR')
+                    .where('QRValue', isEqualTo: qrValue)
+                    .get()
+                    .then((courseData) async{
+                  if(courseData.docs.isNotEmpty==true){
+                    // Checking if already scanned
+                    if(courseData.docs[0].data()['Validated']==true){
+                      await FirebaseFirestore.instance.collection('AttendanceDetail')
+                          .where('AttendanceCourseID',isEqualTo: courseID)
+                          .where('QRValue',isEqualTo: qrValue)
+                          .where('AttendanceID',isEqualTo: widget.studentuid).get().then((value) async{
+                        if (value.docs.isEmpty==true){
+                          FirebaseFirestore.instance.collection('AttendanceDetail').doc().set(
+                              {
+                                'AttendanceTime': DateTime.now(),
+                                'AttendanceID': widget.studentuid,
+                                'AttendanceName': widget.user['FullName'],
+                                'AttendanceCourseID': courseID,
+                                'QRValue': qrValue,
+                              }).then((value) {
+                            setState(() {
+                              qrString = 'Attended successfully.';
+                              qrStringColor=Colors.green;
+                            });
+                            showInSnackBar('Attended successfully .',Colors.green ,2);
+                          });
+                        }else{
+                          setState(() {
+                            qrString = 'Already attended this session.';
+                            qrStringColor=Colors.red;
+                          });
+                          showInSnackBar('Already attended this session.',Colors.red ,2);
+                        }
                       });
+                    }else{
+                      setState(() {
+                        qrString = 'QR Expired, Ask the tutor for the new one.';
+                        qrStringColor=Colors.red;
+                      });
+                      showInSnackBar('QR Expired, Ask the tutor for the new one.',Colors.red ,2);
+                    }
+                  }else{
+                    setState(() {
+                      qrString = 'QR is invalid';
+                      qrStringColor=Colors.red;
+                    });
+                    showInSnackBar('QR is invalid',Colors.red ,2);
+                  }
                 });
-              });
+              }else{
+                setState(() {
+                  qrString = 'QR is invalid';
+                  qrStringColor=Colors.red;
+                });
+                showInSnackBar('QR is invalid',Colors.red ,2);
+              }
             });
-      });
-      qrString = 'Attended Successfully';
     } catch (e) {
       setState(() {
-        qrString = "Unable to read the QR";
+        qrString = "QR is invalid";
+        qrStringColor=Colors.red;
       });
     }
 
+  }
+
+  void showInSnackBar(String value, Color color, int duration) {
+    FocusScope.of(context).requestFocus(new FocusNode());
+    _scaffoldKey.currentState?.removeCurrentSnackBar();
+    _scaffoldKey.currentState.showSnackBar(new SnackBar(
+      content: Container(
+        height: 50,
+        color: Colors.transparent,
+        child: new Text(
+          value,
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.white, fontSize: 16.0, fontFamily: "WorkSansSemiBold"),
+        ),
+      ),
+      backgroundColor: color,
+      duration: Duration(seconds: duration),
+    )
+    );
   }
 }
