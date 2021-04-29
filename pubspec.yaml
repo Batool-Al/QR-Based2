@@ -17,12 +17,12 @@ dependencies:
   splashscreen:
   animated_splash: ^1.0.0
     # Firebase
-  firebase_core:
-  firebase_database:
-  firebase_auth:
-  cloud_firestore:
-  firebase_storage:
-  image_picker:
+  #firebase_database:
+  firebase_auth: ^1.0.1
+  cloud_firestore: ^1.0.3
+  firebase_core: ^1.0.2
+  firebase_storage: ^8.0.1
+  image_picker: ^0.7.4
   transparent_image:
   http:
     #scan and generate
@@ -30,10 +30,11 @@ dependencies:
   barcode_widget:
   flutter_svg: ^0.19.1
   flutter_cache_manager:
-  file_picker:
-  path_provider:
+  file_picker: ^3.0.1
+  path_provider: ^2.0.1
     #random String
   random_string: ^2.1.0
+  intl: ^0.17.0
 
 
   # The following adds the Cupertino Icons font to your application.

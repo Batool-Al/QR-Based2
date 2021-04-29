@@ -38,7 +38,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.menu_book_outlined),
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddExcuse()));
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddExcuse(userID: widget.contactKey,)));
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,

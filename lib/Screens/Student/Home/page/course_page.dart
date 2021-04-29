@@ -22,6 +22,7 @@ class _CoursesPageState extends State<CoursesPage> {
   QuerySnapshot event;
   @override
   void initState() {
+    if(!mounted)return;
     setState(() {
       streamUserData=FirebaseFirestore.instance.collection('UsersAccounts').doc(widget.studentuid).snapshots();
     });
@@ -32,6 +33,7 @@ class _CoursesPageState extends State<CoursesPage> {
 
  Future getUserData()async{
     streamUserData.listen((event) {
+      if(!mounted)return;
       setState(() {
         userData=event;
       });
@@ -39,6 +41,7 @@ class _CoursesPageState extends State<CoursesPage> {
   }
   Future getCoursesData()async{
     streamCourses.listen((data) {
+      if(!mounted)return;
       setState(() {
         event=data;
       });

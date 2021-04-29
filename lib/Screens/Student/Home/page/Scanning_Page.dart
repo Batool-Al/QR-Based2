@@ -79,6 +79,7 @@ class _StudentScanState extends State<StudentScan> {
                                 'AttendanceCourseID': courseID,
                                 'QRValue': qrValue,
                               }).then((value) {
+                            if(!mounted)return;
                             setState(() {
                               qrString = 'Attended successfully.';
                               qrStringColor=Colors.green;
@@ -86,6 +87,7 @@ class _StudentScanState extends State<StudentScan> {
                             showInSnackBar('Attended successfully .',Colors.green ,2);
                           });
                         }else{
+                          if(!mounted)return;
                           setState(() {
                             qrString = 'Already attended this session.';
                             qrStringColor=Colors.red;
@@ -94,6 +96,7 @@ class _StudentScanState extends State<StudentScan> {
                         }
                       });
                     }else{
+                      if(!mounted)return;
                       setState(() {
                         qrString = 'QR Expired, Ask the tutor for the new one.';
                         qrStringColor=Colors.red;
@@ -101,6 +104,7 @@ class _StudentScanState extends State<StudentScan> {
                       showInSnackBar('QR Expired, Ask the tutor for the new one.',Colors.red ,2);
                     }
                   }else{
+                    if(!mounted)return;
                     setState(() {
                       qrString = 'QR is invalid';
                       qrStringColor=Colors.red;
@@ -109,6 +113,7 @@ class _StudentScanState extends State<StudentScan> {
                   }
                 });
               }else{
+                if(!mounted)return;
                 setState(() {
                   qrString = 'QR is invalid';
                   qrStringColor=Colors.red;
@@ -117,6 +122,7 @@ class _StudentScanState extends State<StudentScan> {
               }
             });
     } catch (e) {
+      if(!mounted)return;
       setState(() {
         qrString = "QR is invalid";
         qrStringColor=Colors.red;
