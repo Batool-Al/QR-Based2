@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:qr_based_attendance_system/Screens/Student/Home/page/EditPofile.dart';
+import 'package:qr_based_attendance_system/Screens/Student/Home/EditProfile/EditEmail.dart';
+import 'package:qr_based_attendance_system/Screens/Student/Home/EditProfile/EditName.dart';
+import 'package:qr_based_attendance_system/Screens/logInScreen/components/body.dart';
 
 class ProfilePage extends StatefulWidget {
   final String studentuid;
@@ -36,16 +39,13 @@ class _ProfilePageState extends State<ProfilePage> {
               height: double.infinity,
               child: ListView(
                 children: [
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 100),
-                    height: 300,
-                    color: Colors.white,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-
-                      children: [
-                        Row(
-
+                  Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 10),
+                        height: 60,
+                        color: Colors.white,
+                        child: Row(
                           children: [
                             Icon(
                               Icons.drive_file_rename_outline,
@@ -62,12 +62,39 @@ class _ProfilePageState extends State<ProfilePage> {
                                   color: Theme.of(context).primaryColor,
                                   fontWeight: FontWeight.w600),
                             ),
+                            SizedBox(width: 160,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                GestureDetector(
+                                  onTap: (){
+
+                                    Navigator.push(context,
+                                      MaterialPageRoute(builder: (_) {
+                                        return EditName( studentID: widget.studentuid,);
+                                      }),);},
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.edit,
+                                        color: Theme.of(context).primaryColor,),
+                                      SizedBox(width: 6,),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
+
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 10),
+                        height: 60,
+                        color: Colors.white,
+                        child: Row(
                           children: [
                             Icon(
                               Icons.card_travel,
@@ -84,12 +111,38 @@ class _ProfilePageState extends State<ProfilePage> {
                                   color: Theme.of(context).primaryColor,
                                   fontWeight: FontWeight.w600),
                             ),
+                            SizedBox(width: 120,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                GestureDetector(
+                                  onTap: (){
+
+                                    Navigator.push(context,
+                                      MaterialPageRoute(builder: (_) {
+                                        return EditEmail( studentID: widget.studentuid,);
+                                      }),);},
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.edit,
+                                        color: Theme.of(context).primaryColor,),
+                                      SizedBox(width: 6,),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 10),
+                        height: 60,
+                        color: Colors.white,
+                        child: Row(
 
                           children: [
                             Icon(
@@ -109,10 +162,15 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 10),
+                        height: 60,
+                        color: Colors.white,
+                        child: Row(
 
                           children: [
                             Icon(
@@ -132,36 +190,31 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: 60,
-                        ),
-                        Container(
-                          margin: EdgeInsets.symmetric(vertical: 7),
-                          width: size.width * 0.4,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(29),
-                            // ignore: deprecated_member_use
-                            child: RaisedButton(
-                              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-                              color: Colors.indigo[400],
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return EditProfile(studentID: widget.studentuid,);
-                                    },
-                                  ),
-                                );
-                              },
-                              child: Text(
-                                "Edit",
-                                style: TextStyle(color: Colors.white ,fontFamily: "NotoSerif-Bold"),
-                              ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 7),
+                        width: size.width * 0.4,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(29),
+                          // ignore: deprecated_member_use
+                          child: RaisedButton(
+                            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                            color: Colors.indigo[400],
+                            onPressed: () {
+                              _signout();
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              "SignOut",
+                              style: TextStyle(color: Colors.white ,fontFamily: "NotoSerif-Bold"),
                             ),
                           ),
                         ),
-                        ],),),
+                      ),
+                      ],),
                 ],
               ),
             );
@@ -171,5 +224,10 @@ class _ProfilePageState extends State<ProfilePage> {
         },
       ),
     );
+  }
+
+  Future <LogInPage> _signout()async{
+    await FirebaseAuth.instance.signOut();
+    return new LogInPage();
   }
 }

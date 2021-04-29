@@ -80,6 +80,7 @@ class _EditCoursesState extends State<EditCourses> {
                 ),
                 onPressed: () {
                   saveContact();
+                  Navigator.of(context).pop();
                 },
                 color: Theme.of(context).primaryColor,
               ),

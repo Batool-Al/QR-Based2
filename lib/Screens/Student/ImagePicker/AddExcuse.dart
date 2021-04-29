@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart' as path;
 import 'package:intl/intl.dart';
 class AddExcuse extends StatefulWidget {
@@ -46,7 +45,7 @@ class _AddExcuseState extends State<AddExcuse> {
       appBar: AppBar(
         title: Text('Excuse'),
         actions: [
-          FlatButton(
+          TextButton(
               onPressed: () {
                 if(showNewExcuse==false){
                   setState(() {
@@ -165,7 +164,7 @@ class _AddExcuseState extends State<AddExcuse> {
               ),
             ),
           ),
-          SizedBox(height: 25,),
+          SizedBox(height: 20,),
           GestureDetector(
             child: Container(
               height: 35,
@@ -321,7 +320,7 @@ class _AddExcuseState extends State<AddExcuse> {
               ),
             ),
           ),
-          SizedBox(height: 25,),
+          SizedBox(height: 10,),
           GestureDetector(
             child: Container(
               height: 35,

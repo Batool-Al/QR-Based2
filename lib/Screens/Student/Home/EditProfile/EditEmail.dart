@@ -2,22 +2,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
 
-class EditProfile extends StatefulWidget {
+class EditEmail extends StatefulWidget {
   final String studentID;
-  EditProfile({this.studentID});
+  EditEmail({this.studentID});
 
   @override
-  _EditProfileState createState() => _EditProfileState();
+  _EditEmailState createState() => _EditEmailState();
 }
 
-class _EditProfileState extends State<EditProfile> {
-  TextEditingController _nameController, _emailController;
+class _EditEmailState extends State<EditEmail> {
+  TextEditingController _emailController;
+  String  email;
 
   @override
   void initState() {
 
     super.initState();
-    _nameController = TextEditingController();
     _emailController = TextEditingController();
 
   }
@@ -35,20 +35,6 @@ class _EditProfileState extends State<EditProfile> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
-                controller: _nameController,
-                decoration: InputDecoration(
-                  hintText: 'Enter Name',
-                  prefixIcon: Icon(
-                    Icons.face,
-                    size: 30,
-                  ),
-                  fillColor: Colors.white,
-                  filled: true,
-                  contentPadding: EdgeInsets.all(15),
-                ),
-              ),
-              SizedBox(height: 15),
-              TextFormField(
                 controller: _emailController,
                 decoration: InputDecoration(
                   hintText: 'Enter Email',
@@ -60,9 +46,10 @@ class _EditProfileState extends State<EditProfile> {
                   filled: true,
                   contentPadding: EdgeInsets.all(15),
                 ),
+                onChanged: (value){
+                  email = value;
+                },
               ),
-
-
               SizedBox(
                 height: 15,
               ),
@@ -82,6 +69,7 @@ class _EditProfileState extends State<EditProfile> {
                   ),
                   onPressed: () {
                     saveContact();
+                    Navigator.of(context).pop();
                   },
                   color: Theme.of(context).primaryColor,
                 ),
@@ -95,13 +83,9 @@ class _EditProfileState extends State<EditProfile> {
 
 
   void saveContact() async{
-
     await FirebaseFirestore.instance.collection('UsersAccounts').doc(widget.studentID).update({
-      'FullName': _nameController.text,
-      'Email':  _emailController,
+      'Email': email,
 
-    }).then((value) {
-      print('Done');
     });
   }
 

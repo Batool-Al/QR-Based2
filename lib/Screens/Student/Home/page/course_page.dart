@@ -35,7 +35,7 @@ class _CoursesPageState extends State<CoursesPage> {
     streamUserData.listen((event) {
       if(!mounted)return;
       setState(() {
-        userData=event;
+        userData = event;
       });
     });
   }
