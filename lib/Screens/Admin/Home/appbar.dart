@@ -1,9 +1,7 @@
-
 import 'package:qr_based_attendance_system/Screens/Admin/Courses/AddCourses.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_based_attendance_system/Screens/Admin/Courses/DisplayCourses.dart';
-import 'package:qr_based_attendance_system/Screens/Admin/VeiwExcuses/UploadExcuses.dart';
-
+import 'package:qr_based_attendance_system/Screens/Admin/VeiwExcuses/ExcusesManager.dart';
 
 class AdminHomePage extends StatefulWidget {
   final String contactKey;
@@ -71,7 +69,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
               ),
               buildPage3(
                 Scaffold(
-                  body: MainPage1(),
+                  body: ExcusesManager(),
                 )),
               buildPage4(
                 Scaffold(

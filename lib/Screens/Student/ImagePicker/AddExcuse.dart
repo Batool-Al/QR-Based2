@@ -213,6 +213,9 @@ class _AddExcuseState extends State<AddExcuse> {
       case 'Rejected':{
         return Colors.red;
       }break;
+      case 'Approved':{
+        return Colors.green;
+      }break;
       default :{
         return Colors.orange;
       }
@@ -303,8 +306,8 @@ class _AddExcuseState extends State<AddExcuse> {
                 fontSize: 16,
                 height: 1,
               ),
-              maxLines: 6,
-              maxLength: 300,
+              maxLines: 4,
+              maxLength: 200,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                 enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0),
@@ -455,9 +458,7 @@ class _AddExcuseState extends State<AddExcuse> {
     ));
   }
 
-  void showInWaitingSnackBar(
-    String value,
-  ) {
+  void showInWaitingSnackBar(String value,) {
     FocusScope.of(context).requestFocus(new FocusNode());
     // ignore: deprecated_member_use
     _scaffoldKey.currentState?.removeCurrentSnackBar();

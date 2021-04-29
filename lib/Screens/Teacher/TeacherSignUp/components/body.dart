@@ -39,9 +39,18 @@ class _TeacherSignupState extends State<TeacherSignup> {
         "AlternativeID":idController.text
       }).then((value) {
         completed=true;
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return LogInPage();
+            },
+          ),
+        );
       });
     } on FirebaseAuthException catch (e) {
-      print("error $e");
+      print("error $e.");
+      showInSnackBar(e.message,Colors.red,3);
     } catch (e) {
       print("error $e");
     }
@@ -246,19 +255,7 @@ class _TeacherSignupState extends State<TeacherSignup> {
                   padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
                   color: Colors.indigo[400],
                   onPressed: () {
-                    _createUser();
-                    validator().then((value) {
-                      if(value==true){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return LogInPage();
-                            },
-                          ),
-                        );
-                      }
-                    });
+                    validator();
                   },
                   child: Text(
                     "SIGNUP",
@@ -295,6 +292,7 @@ class _TeacherSignupState extends State<TeacherSignup> {
       showInSnackBar('Password is Invalid', Colors.red, 2);
     }else{
       validated=true;
+      _createUser();
     }
     return validated;
   }
