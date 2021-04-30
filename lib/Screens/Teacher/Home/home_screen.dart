@@ -1,8 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:qr_based_attendance_system/Screens/Teacher/Home/ScanGenerate/ScanGenerateMain.dart';
 import 'package:qr_based_attendance_system/Screens/Teacher/Home/TeacherProfile/TeacherProfile.dart';
-import '../../../components/rounded_input_field.dart';
 import 'ScanGenerate/Screens/DisplayCourses.dart';
 
 
@@ -20,20 +18,13 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
   @override
   Widget build(BuildContext context) =>
       DefaultTabController(
-        length: 4,
+        length: 2,
         child: Scaffold(
           appBar: AppBar(
-            title: Text("Hello ${widget.user['FullName']}", style: TextStyle(fontSize: 15),),
+            title: Text("Hello ${widget.user['FullName']}", style: TextStyle(fontSize: 20),),
             //centerTitle: true,
             actions: [
-              IconButton(
-                icon: Icon(Icons.notifications_none),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: Icon(Icons.search),
-                onPressed: () {},
-              )
+
             ],
             //backgroundColor: Colors.purple,
             flexibleSpace: Container(
@@ -50,9 +41,7 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
               indicatorColor: Colors.white,
               indicatorWeight: 5,
               tabs: [
-                Tab(icon: Icon(Icons.group_add_outlined), text: 'Attendance'),
                 Tab(icon: Icon(Icons.menu_book_outlined), text:  'Courses'),
-                Tab(icon: Icon(Icons.message_outlined), text: 'Excuses'),
                 Tab(icon: Icon(Icons.face), text: 'Profile'),
               ],
             ),
@@ -61,26 +50,14 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
           ),
           body: TabBarView(
             children: [
-              buildPage(
-                ScanGenerate(),),
-              buildPage2(
+
+              buildPage1(
                   Scaffold(
                     body: TeacherCourses(),
                   )
               ),
-              buildPage3(
-                Column(
-                    children: [
-                      Text("kajskl"),
-                      SizedBox(height: 30),
-                      Container(
-                        child: Text("kjsdfk"),
-                      ),
-                      TextInputField(
-                          icon: Icons.eighteen_mp, hint: "ksjdf")
-                    ]
-                ),),
-              buildPage4(
+
+              buildPage2(
                Scaffold(
                  body: TeacherProfile(user: widget.user, contactKey: widget.contactKey),
                )
@@ -90,19 +67,12 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
         ),
       );
 
-  Widget buildPage(var scaffold1) =>
-      scaffold1;
-  Widget buildPage2(Scaffold scaffold) =>
+
+  Widget buildPage1(Scaffold scaffold) =>
   Scaffold(
     body: scaffold,
   );
-  Widget buildPage3(Column container) =>
-      Column(
-        children: [
-          container,
-        ],
-      );
-  Widget buildPage4(Scaffold scafold) =>
+  Widget buildPage2(Scaffold scafold) =>
       Scaffold(
         body: scafold,
       );

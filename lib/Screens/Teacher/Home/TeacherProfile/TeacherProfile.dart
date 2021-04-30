@@ -1,5 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:qr_based_attendance_system/Screens/Teacher/Home/TeacherProfile/TeacherEmailEdit.dart';
+import 'package:qr_based_attendance_system/Screens/logInScreen/components/body.dart';
+
+import 'TeacherNameEdit.dart';
 
 class TeacherProfile extends StatefulWidget {
   final Map user;
@@ -19,30 +25,26 @@ class _TeacherProfileState extends State<TeacherProfile> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     var userData = FirebaseFirestore.instance.collection('UsersAccounts').doc(widget.contactKey).get;
 
     return Scaffold(
-      backgroundColor: Colors.white,
       floatingActionButton: null,
-      body: Container(
-        height: double.infinity,
-        child: FutureBuilder(
-          future: userData(),
-          builder: (context, snapshot){
-            if ( snapshot.connectionState == ConnectionState.done){
-
-              return ListView(
+      body: FutureBuilder(
+        future: userData(),
+        builder: (context, snapshot){
+          if ( snapshot.connectionState == ConnectionState.done){
+            return Container(
+              height: double.infinity,
+              child: ListView(
                 children: [
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 80),
-                    height: 200,
-                    color: Colors.white,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-
-                      children: [
-                        Row(
-
+                  Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 10),
+                        height: 60,
+                        color: Colors.white,
+                        child: Row(
                           children: [
                             Icon(
                               Icons.drive_file_rename_outline,
@@ -59,12 +61,39 @@ class _TeacherProfileState extends State<TeacherProfile> {
                                   color: Theme.of(context).primaryColor,
                                   fontWeight: FontWeight.w600),
                             ),
+                            SizedBox(width: 160,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                GestureDetector(
+                                  onTap: (){
+
+                                    Navigator.push(context,
+                                      MaterialPageRoute(builder: (_) {
+                                        return TeacherNameEdit( contactKey: widget.contactKey,);
+                                      }),);},
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.edit,
+                                        color: Theme.of(context).primaryColor,),
+                                      SizedBox(width: 6,),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
+
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 10),
+                        height: 60,
+                        color: Colors.white,
+                        child: Row(
                           children: [
                             Icon(
                               Icons.card_travel,
@@ -81,12 +110,37 @@ class _TeacherProfileState extends State<TeacherProfile> {
                                   color: Theme.of(context).primaryColor,
                                   fontWeight: FontWeight.w600),
                             ),
+                            SizedBox(width: 90,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                GestureDetector(
+                                  onTap: (){
+                                    Navigator.push(context,
+                                      MaterialPageRoute(builder: (_) {
+                                        return TeacherEmailEdit( contactKey: widget.contactKey,);
+                                      }),);},
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.edit,
+                                        color: Theme.of(context).primaryColor,),
+                                      SizedBox(width: 6,),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 10),
+                        height: 60,
+                        color: Colors.white,
+                        child: Row(
 
                           children: [
                             Icon(
@@ -106,19 +160,49 @@ class _TeacherProfileState extends State<TeacherProfile> {
                             ),
                           ],
                         ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
 
-                        SizedBox(
-                          height: 15,
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 7),
+                        width: size.width * 0.4,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(29),
+                          // ignore: deprecated_member_use
+                          child: RaisedButton(
+                            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                            color: Colors.indigo[400],
+                            onPressed: () {
+                              signout();
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              "SignOut",
+                              style: TextStyle(color: Colors.white ,fontFamily: "NotoSerif-Bold"),
+                            ),
+                          ),
                         ),
-                      ],),),
+                      ),
+                    ],),
                 ],
-              );
-            }else{
-              return Center(child: CircularProgressIndicator());
-            }
-          },
-        ),
+              ),
+            );
+          }else{
+            return Center(child: CircularProgressIndicator());
+          }
+        },
       ),
     );
   }
+  Future <LogInPage> signout()async{
+    await FirebaseAuth.instance.signOut();
+    return LogInPage();
+
+  }
 }
+

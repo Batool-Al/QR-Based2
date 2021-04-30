@@ -13,7 +13,6 @@ class CreateScreen extends StatefulWidget {
   @override
   _CreateScreenState createState() => _CreateScreenState();
 }
-
 class _CreateScreenState extends State<CreateScreen> {
 
   String qrString;
@@ -23,6 +22,8 @@ class _CreateScreenState extends State<CreateScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     String random = randomAlphaNumeric(20);
     qrString = widget.contactKey;
     qrGenerated = qrString + random;
@@ -35,37 +36,72 @@ class _CreateScreenState extends State<CreateScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          SizedBox(height: 20,),
-          // qr code
-          BarcodeWidget(
-            color: Colors.blue,
-            data: qrGenerated ,
-            height: 250,
-            width: 250,
-            barcode: Barcode.qrCode(),
+          SizedBox(height: 10,),
+          Card(
+            elevation: 12,
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child:
+              BarcodeWidget(
+                color: Colors.blue,
+                data: qrGenerated ,
+                height: 250,
+                width: 250,
+                barcode: Barcode.qrCode(),
+              ),
+            ),
+          ),
+          SizedBox(height: 10,),
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 10),
+            width: size.width * 0.5,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(29),
+              // ignore: deprecated_member_use
+              child: RaisedButton(
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                color: Colors.indigo[300],
+                onPressed: () {
+                  generated.set(
+                      { 'Attended': 0,
+                        'CourseID': widget.contactKey,
+                        'CourseCode': widget.contactInfo['Course'],
+                        'DateCreated': DateTime.now(),
+                        'QRValue': qrGenerated,
+                        'Validated': true,
+                      });
+                },
+                child: Text(
+                  "Sace QR Data",
+                  style: TextStyle(color: Colors.white ,fontFamily: "NotoSerif-Bold"),
+                ),
+              ),
+            ),
+          ),
 
-          ),
-          TextButton(
-            onPressed:(){
-              generated.set(
-                  { 'Attended': 0,
-                    'CourseID': widget.contactKey,
-                    'CourseCode': widget.contactInfo['Course'],
-                    'DateCreated': DateTime.now(),
-                    'QRValue': qrGenerated,
-                    'Validated': true,
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 10),
+            width: size.width * 0.5,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(29),
+              // ignore: deprecated_member_use
+              child: RaisedButton(
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                color: Colors.indigo[300],
+                onPressed: () {
+                  generated.update({
+                    'Validated': false,
                   });
-            },
-            child: Text('Create QR'),
+                },
+                child: Text(
+                  "Pause Validation",
+                  style: TextStyle(color: Colors.white ,fontFamily: "NotoSerif-Bold"),
+                ),
+              ),
+            ),
           ),
+          // qr code
           // link
-          TextButton(
-              onPressed: (){
-                generated.update({
-                  'Validated': false,
-                });
-              },
-              child: Text("Pause Validation")),
           SizedBox(
             width: MediaQuery.of(context).size.width,
           ),

@@ -320,5 +320,6 @@ class _TeacherSignupState extends State<TeacherSignup> {
     confirmPasswordController.dispose();
     emailController.dispose();
   }
+
 }
 

@@ -109,11 +109,11 @@ class _CoursesState extends State<Courses> {
                       children: [
                         GestureDetector(
                           onTap: (){
-
                             Navigator.push(context,
                               MaterialPageRoute(builder: (_) {
                                 return EditCourses( contactKey: contact);
-                              }),);},
+                              }),);
+                            Navigator.of(context).pop();},
                           child: Row(
                             children: [
                               Icon(Icons.edit,

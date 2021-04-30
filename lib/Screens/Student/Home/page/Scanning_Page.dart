@@ -20,9 +20,12 @@ class _StudentScanState extends State<StudentScan> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     student = widget.studentuid;
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
+
     print("Hello  ${widget.studentuid}");
     return Scaffold(
       key: _scaffoldKey,
@@ -41,9 +44,25 @@ class _StudentScanState extends State<StudentScan> {
                     color: qrStringColor, fontSize: 30),
               ),
             ),
-            ElevatedButton(
-              onPressed: scanQR,
-              child: Text("Scan QR Code"),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 10),
+              width: size.width * 0.5,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(29),
+                // ignore: deprecated_member_use
+                child: RaisedButton(
+
+                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                  color: Colors.indigo[300],
+                  onPressed: () {
+                    scanQR();
+                  },
+                  child: Text(
+                    "Scan QR code",
+                    style: TextStyle(color: Colors.white ,fontFamily: "NotoSerif-Bold"),
+                  ),
+                ),
+              ),
             ),
             SizedBox(width: width),
           ],
@@ -82,7 +101,7 @@ class _StudentScanState extends State<StudentScan> {
                             if(!mounted)return;
                             setState(() {
                               qrString = 'Attended successfully.';
-                              qrStringColor=Colors.green;
+                              qrStringColor = Colors.green;
                             });
                             showInSnackBar('Attended successfully .',Colors.green ,2);
                           });

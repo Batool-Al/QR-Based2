@@ -30,6 +30,10 @@ class _LogInPageState extends State<LogInPage> {
 
     super.initState();
   }
+  clearTextInput(){
+    emailController.clear();
+    passwordController.clear();
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -124,6 +128,7 @@ class _LogInPageState extends State<LogInPage> {
                       validator().then((value) {
                         if(value==true){
                           signIn();
+                          clearTextInput();
                         }
                       });
                     },
@@ -163,7 +168,9 @@ class _LogInPageState extends State<LogInPage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => WelcomeScreen()));
+                          builder: (context) => WelcomeScreen()
+
+                      ));
                 },
               ),
             ],
@@ -214,6 +221,7 @@ class _LogInPageState extends State<LogInPage> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => StudentHomePage(contactKey: contactKey, user: user)));
+
               }break;
             case 'Teacher':
               {
@@ -221,7 +229,9 @@ class _LogInPageState extends State<LogInPage> {
                 return Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => TeacherHomePage(contactKey: contactKey, user: user)));
+                        builder: (context) => TeacherHomePage(contactKey: contactKey, user: user))
+                );
+
               }break;
           }
         });

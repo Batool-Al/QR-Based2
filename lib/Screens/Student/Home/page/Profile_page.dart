@@ -226,8 +226,8 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Future <LogInPage> _signout()async{
+  Future _signout()async{
     await FirebaseAuth.instance.signOut();
-    return new LogInPage();
+    return LogInPage();
   }
 }
